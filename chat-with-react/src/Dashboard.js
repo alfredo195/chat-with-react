@@ -8,6 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { CTX } from "./Store";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +40,12 @@ const useStyles = makeStyles(theme => ({
 export default function Dashboard() {
   const classes = useStyles();
 
-  const [textValue, changeTextValue] = React.useState('');
+  //CTX store
+  const { allChats, sendChatAction, user } = React.useContext(CTX);
+  const topics = Object.keys(allChats);
+  // local state
+  const [activeTopic, changeActiveTopic] = React.useState(topics[0]);
+  const [textValue, changeTextValue] = React.useState("");
 
   return (
     <div>
@@ -47,24 +53,30 @@ export default function Dashboard() {
         <Typography variant="h4" component="h3">
           Chat app.
         </Typography>
-        <Typography component="h5">topic</Typography>
+        <Typography component="h5">{activeTopic}</Typography>
         <div className={classes.flex}>
           <div className={classes.topicsWindow}>
             <List>
-              {["topic"].map(topic => (
-                <ListItem key={topic} button>
-                  <ListItemText primary={topic} />
-                </ListItem>
-              ))}
+              topics.map(topic => (
+              <ListItem
+                onClick={e => changeActiveTopic(e.target.innerText)}
+                key={topic}
+                button
+              >
+                <ListItemText primary={topic} />
+              </ListItem>
+              ))
             </List>
           </div>
           <div className={classes.chatWindow}>
-            {[{ from: "user", msg: "hello" }].map((chat, i) => (
-              <div className={classes.flex} key={i}>
-                <Chip label={chat.from} />
-                <Typography variant="p">{chat.msg}</Typography>
-              </div>
-            ))}
+            allChats[activeTopic].map((chat, i) => (
+            <div className={classes.flex} key={i}>
+              <Chip label={chat.from} />
+              <Typography variant="body1" gutterBottom>
+                {chat.msg}
+              </Typography>
+            </div>
+            ))
           </div>
         </div>
 
@@ -79,6 +91,10 @@ export default function Dashboard() {
             variant="contained"
             color="primary"
             className={classes.button}
+            onClick={() => {
+              sendChatAction({from: user,msg: textValue, topic: activeTopic});
+              changeTextValue(";")
+            }}
           >
             Send
           </Button>
