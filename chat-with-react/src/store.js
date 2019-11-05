@@ -45,7 +45,7 @@ function sendChatAction(value) {
 }
 
 
-export default function store(props) {
+export default function Store(props) {
 
     const [allChats, dispatch] = React.useReducer(reducer, initState);
     

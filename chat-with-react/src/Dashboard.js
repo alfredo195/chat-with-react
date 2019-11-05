@@ -57,26 +57,26 @@ export default function Dashboard() {
         <div className={classes.flex}>
           <div className={classes.topicsWindow}>
             <List>
-              topics.map(topic => (
-              <ListItem
-                onClick={e => changeActiveTopic(e.target.innerText)}
-                key={topic}
-                button
-              >
-                <ListItemText primary={topic} />
-              </ListItem>
-              ))
+              {topics.map(topic => (
+                <ListItem
+                  onClick={e => changeActiveTopic(e.target.innerText)}
+                  key={topics}
+                  button
+                >
+                  <ListItemText primary={topic} />
+                </ListItem>
+              ))}
             </List>
           </div>
           <div className={classes.chatWindow}>
-            allChats[activeTopic].map((chat, i) => (
-            <div className={classes.flex} key={i}>
-              <Chip label={chat.from} />
-              <Typography variant="body1" gutterBottom>
-                {chat.msg}
-              </Typography>
-            </div>
-            ))
+            {allChats[activeTopic].map((chat, i) => (
+              <div className={classes.flex} key={i} >
+                <Chip label={chat.from} />
+                <Typography variant="body1" gutterBottom>
+                  {chat.msg}
+                </Typography>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -92,8 +92,12 @@ export default function Dashboard() {
             color="primary"
             className={classes.button}
             onClick={() => {
-              sendChatAction({from: user,msg: textValue, topic: activeTopic});
-              changeTextValue(";")
+              sendChatAction({
+                from: user,
+                msg: textValue,
+                topic: activeTopic
+              });
+              changeTextValue(";");
             }}
           >
             Send
