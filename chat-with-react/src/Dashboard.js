@@ -97,7 +97,7 @@ export default function Dashboard() {
                 msg: textValue,
                 topic: activeTopic
               });
-              changeTextValue(";");
+              changeTextValue("");
             }}
           >
             Send
