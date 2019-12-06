@@ -1,7 +1,7 @@
 This chat app is very versoltile its ready for plug and play and can easily be added to any project that might need a chat application.
 The file structuor is  not in the coventional layout as a feel it is easier to move stuff to your project like that.
 I recently pluged it in to a project i worked on and intergration was simple and caused no problems.
-![chat box ex](/public/chatBox.png)
+![chat box ex](/public/chat.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
